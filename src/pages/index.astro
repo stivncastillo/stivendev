@@ -1,50 +1,210 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Card from "../components/Card/index.astro";
+import { SITE_TITLE, SITE_DESCRIPTION, LINKS } from "../consts";
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import Button from "../components/Button.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main
+    class="text-white m-auto p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 sm:gap-2 md:grid-cols-2 md:gap-3 md:p-6 lg:h-screen lg:grid-rows-8 lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]"
+  >
+    <Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
+      <div class="flex w-full h-full">
+        <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+          <div class="flex flex-col h-full">
+            <h6 class="text-sm font-light m-0 text-stone-500">bienvenido</h6>
+            <p class="m-0 font-light text-xl">
+              Hola, soy <b class="font-bold">Stiven Castillo</b>, un
+              desarrollador con enfoque en la experiencia del usuario, interfaz
+              y sistemas de diseño.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <a href={LINKS.github} aria-label="github profile" target="_blank">
+              <Button aria-label="github profile">
+                <Icon name="ri:github-fill" class="h-6" />
+                <span class="sr-only">GitHub Profile</span>
+              </Button>
+            </a>
+            <a
+              href={LINKS.linkedin}
+              aria-label="linkedin profile"
+              target="_blank"
+            >
+              <Button aria-label="linkedin profile">
+                <Icon name="ri:linkedin-box-fill" class="h-6" />
+                <span class="sr-only">Linkedin Profile</span>
+              </Button>
+            </a>
+            <a
+              href={LINKS.dribble}
+              aria-label="dribble profile"
+              target="_blank"
+            >
+              <Button aria-label="dribble profile">
+                <Icon name="ri:dribbble-fill" class="h-6" />
+                <span class="sr-only">Dribble Profile</span>
+              </Button>
+            </a>
+            <a href={LINKS.medium} aria-label="dribble profile" target="_blank">
+              <Button aria-label="dribble profile">
+                <Icon name="ri:medium-fill" class="h-6" />
+                <span class="sr-only">Medium Profile</span>
+              </Button>
+            </a>
+          </div>
+        </div>
+        <Image
+          width="300"
+          height="300"
+          src="/me.webp"
+          class="w-auto max-h-[300px] select-none absolute right-[-110px] bottom-[-20px] z-[-1] opacity-50 md:opacity-100 md:relative md:right-auto md:bottom-auto md:z-auto pointer-events-none"
+          alt="memoji of stiven"
+        />
+      </div>
+    </Card>
+
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-6" title="About me">
+      <div class="flex flex-col gap-4 space-y-2">
+        <div class="text-sm font-light">
+          <p>
+            Hola, soy Stiven, un desarrollador front-end, ubicado en Colombia.
+            <br />
+            Mis herramientas de preferencia incluyen:
+          </p>
+          <ul class="list-disc list-inside">
+            <li>JavaScript</li>
+            <li>React/React Native</li>
+            <li>Nextjs</li>
+            <li>Nodejs</li>
+            <li>Nestjs</li>
+            <li>Typescript</li>
+          </ul>
+        </div>
+        <p class="text-sm font-light">
+          Más allá del código, me apasionan el diseño, la ilustración, los
+          tatuajes, los viajes y el stand-up comedy. Me encanta aprender cosas
+          nuevas y compartir conocimientos con los demás.
+        </p>
+        <p class="text-sm font-light">
+          Estoy abierto al trabajo en equipo y me entusiasma contribuir a la
+          creación de aplicaciones web de primera categoría centradas en el
+          usuario.
+        </p>
+      </div>
+    </Card>
+
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-4">
+      <div class="h-full">
+        <header class="flex items-center">
+          <h1 class="text-white text-xl font-bold">¡Trabajemos juntos!</h1>
+        </header>
+        <address class="flex flex-col mt-4">
+          <h2 class="text-stone-500">Contacto</h2>
+          <p>stivencastillo.90@gmail.com</p>
+          <p>+57 300 200 7603</p>
+          <p>Colombia</p>
+        </address>
+        <div class="flex flex-col mt-4 w-fit">
+          <h2 class="text-stone-500">Redes sociales</h2>
+          <ul>
+            <li>
+              <a
+                href={LINKS.linkedin}
+                target="_blank"
+                class="hover:underline text-sm">Linkedin</a
+              >
+            </li>
+            <li>
+              <a
+                href={LINKS.github}
+                target="_blank"
+                class="hover:underline text-sm">Github</a
+              >
+            </li>
+            <li>
+              <a
+                href={LINKS.medium}
+                target="_blank"
+                class="hover:underline text-sm">Medium</a
+              >
+            </li>
+            <li>
+              <a
+                href={LINKS.dribble}
+                target="_blank"
+                class="hover:underline text-sm">Dribbble</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Card>
+
+    <Card colSpan="lg:col-span-2" rowSpan="md:row-span-2" title="Habilidades">
+      <div class="flex flex-row flex-wrap gap-2 pb-4 pt-2">
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Javascript</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">React</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">React Native</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Nodejs</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Nestjs</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Typescript</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Graphql</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Nextjs</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Figma</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">UI/UX</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Astro</span>
+        <span class="text-sm font-medium px-2.5 py-0.5 rounded bg-indigo-900 text-indigo-300">Backend</span>
+      </div>
+    </Card>
+
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-2">
+      <div class="flex justify-between w-full items-start mb-2">
+        <div class="flex flex-col">
+          <h2>Ahora</h2>
+          <a href="https://sive.rs/nowff" target="_blank">
+            <span class="text-xs text-gray-500 cursor-pointer"
+              >Es qué estoy?</span
+            >
+          </a>
+        </div>
+        <span class="relative flex h-3 w-3">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+          ></span>
+        </span>
+      </div>
+      <p class="text-xs">
+        Actualmente trabajo como freelancer; y aprendiendo a hacer comedia
+        stand-up
+      </p>
+    </Card>
+    <Card
+      colSpan="md:col-span-1"
+      rowSpan="md:row-span-1"
+      title="Último video"
+      href="https://www.youtube.com/watch?v=nPdJ6Hkn-bE"
+      colorText="text-white-900"
+    />
+    <Card
+      colSpan="md:col-span-1"
+      rowSpan="md:row-span-2 flex gap-4"
+      title="Blog"
+      href="/blog"
+    />
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
+      <p class="text-xs">
+        © 2024 · Creado con ♥️ usando <a
+          href="https://astro.build/"
+          target="_blank"
+          class="text-indigo-500">Astro</a
+        > by Stiven.
+      </p>
+    </Card>
+  </main>
+</Layout>

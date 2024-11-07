@@ -1,0 +1,32 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  page?: "travel" | "blog";
+  slug?: string | undefined;
+  frontmatter?: {
+    file: string;
+    url: string | undefined;
+  } & {
+    title: string;
+    description: string;
+    pubDate: string;
+    minutesRead: string;
+  };
+}
+
+const { title, description, page, slug, frontmatter } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="bg-stone-950 md:h-screen flex flex-col justify-center items-center">
+    <slot name="loader" />
+    <slot />
+  </body>
+</html>
