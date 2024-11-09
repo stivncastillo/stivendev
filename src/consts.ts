@@ -9,4 +9,5 @@ export const LINKS = {
   linkedin: "https://www.linkedin.com/in/stivncastillo",
   medium: "https://stivncastillo.medium.com/",
   dribble: "https://dribbble.com/stivncastillo",
+  instagram: "https://www.instagram.com/aytostado/",
 };
