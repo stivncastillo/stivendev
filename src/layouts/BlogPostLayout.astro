@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, publishedAt, heroImage, category, tags } =
+  Astro.props;
+---
+
+<html lang="es" class="dark">
+  <head>
+    <BaseHead title={title} description={description ?? ""} image={heroImage} />
+  </head>
+
+  <body class="bg-stone-950 md:h-screen">
+    <main
+      class="w-screen flex flex-col justify-start items-start max-w-3xl mx-auto p-8"
+    >
+      <a
+        href="/blog"
+        class="text-white bg-stone-900 hover:bg-stone-800 px-4 py-2 mb-8 border border-stone-600 rounded-lg"
+        >Atrás</a
+      >
+      <article class="prose dark:prose-invert min-w-full">
+        <h1>{title}</h1>
+        <div class="flex flex-row items-center justify-between">
+          <a
+            class="border border-zinc-700 rounded-2xl text-sm text-white no-underline px-2 py-0.5 transition-all duration-150 hover:border-zinc-300"
+            href={`/category/${category}`}
+          >
+            {category}
+          </a>
+
+          <div class="text-sm text-stone-400">
+            <FormattedDate date={publishedAt} />
+          </div>
+        </div>
+
+        <div class="w-full">
+          {
+            heroImage && (
+              <img class="w-full rounded-md" src={heroImage} alt={title} />
+            )
+          }
+        </div>
+
+        <div class="flex flex-row items-center gap-2">
+          {
+            tags.map((tag) => (
+              <a class="hover:underline text-sm" href={`/tags/${tag}`}>
+                #{tag}
+              </a>
+            ))
+          }
+        </div>
+        <div>
+          <slot />
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+---
+import { formatDate } from "../../lib/utils";
+import type { InferEntrySchema } from "astro:content";
+import { getEntry } from "astro:content";
+
+interface Props {
+  data: InferEntrySchema<"blog">;
+  slug: string;
+}
+
+const {
+  data: { title, publishedAt, lang, category },
+  slug,
+} = Astro.props;
+
+const categoryEntry = await getEntry(category);
+
+---
+
+<li
+  class="flex flex-col sm:flex-row gap-2 sm:items-center border-b py-2 mb-1 capitalize border-b-zinc-700 text-white"
+>
+  <div class="text-sm w-28 text-stone-400 shrink-0">
+    <time
+      datetime={publishedAt.toISOString()}
+      data-date={publishedAt.toISOString()}
+    >
+      {formatDate(publishedAt)}
+    </time>
+  </div>
+  <h3 class="font-medium grow hover:text-stone-300 transition-all duration-150">
+    <a href={`/blog/${slug}`}>
+      {title}
+    </a>
+  </h3>
+  <div class="flex gap-2 shrink-0 flex-row items-center">
+    <span title={lang}
+    >{lang === "en" ? "🇺🇸" : ""}</span>
+    <a
+      class="border border-zinc-700 rounded-2xl text-sm text-white no-underline px-2 py-0.5 transition-all duration-150 hover:border-zinc-300"
+      href={`/category/${categoryEntry.id}`}
+    >
+      {categoryEntry.data.name}
+    </a>
+  </div>
+</li>

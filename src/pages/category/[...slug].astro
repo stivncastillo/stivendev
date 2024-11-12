@@ -5,15 +5,21 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import PageLayout from "../../layouts/PageLayout.astro";
 import PostRow from "../../components/Blog/PostRow.astro";
 
-const posts = (
-  await getCollection(
-    "blog",
-    (post: CollectionEntry<"blog">) => post.data.published
-  )
-).sort(
-  (a: any, b: any) =>
-    Date.parse(`${b.data.publishedAt}`) - Date.parse(`${a.data.publishedAt}`)
-) as CollectionEntry<"blog">[];
+
+export async function getStaticPaths() {
+  const categories = await getCollection("categories");
+
+  return categories.map((category) => ({
+    params: { slug: category.id },
+    props: {entry: category},
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<"categories">;
+};
+
+const {entry} = Astro.props as Props;
 ---
 
 <PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -26,9 +32,9 @@ const posts = (
       >Atrás</a
     >
     <section class="w-full">
-      <h1 class="text-4xl font-bold mb-4 text-stone-100">Blog</h1>
+      <h1 class="text-4xl font-bold mb-4 text-stone-100">{entry.data.name}</h1>
       <ul class="w-full">
-        {posts?.map((post) => <PostRow data={post.data} slug={post.slug} />)}
+        <!-- {posts?.map((post) => <PostRow data={post.data} slug={post.slug} />)} -->
       </ul>
     </section>
   </main>
