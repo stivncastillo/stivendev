@@ -2,11 +2,16 @@
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import { getEntry } from "astro:content";
+import TOC from "../components/TOC.astro";
 
-type Props = CollectionEntry<"blog">["data"];
+// type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, publishedAt, heroImage, category, tags } =
+const { title, description, publishedAt, heroImage, category, tags, ...rest } =
   Astro.props;
+console.log("🔴 ~ rest:", Astro.props);
+
+const categoryEntry = await getEntry(category);
 ---
 
 <html lang="es" class="dark">
@@ -25,12 +30,12 @@ const { title, description, publishedAt, heroImage, category, tags } =
       >
       <article class="prose dark:prose-invert min-w-full">
         <h1>{title}</h1>
-        <div class="flex flex-row items-center justify-between">
+        <div class="flex flex-row items-center justify-between mb-4">
           <a
             class="border border-zinc-700 rounded-2xl text-sm text-white no-underline px-2 py-0.5 transition-all duration-150 hover:border-zinc-300"
             href={`/category/${category}`}
           >
-            {category}
+            {categoryEntry?.data.name}
           </a>
 
           <div class="text-sm text-stone-400">
@@ -38,17 +43,17 @@ const { title, description, publishedAt, heroImage, category, tags } =
           </div>
         </div>
 
-        <div class="w-full">
-          {
-            heroImage && (
+        {
+          heroImage && (
+            <div class="w-full">
               <img class="w-full rounded-md" src={heroImage} alt={title} />
-            )
-          }
-        </div>
+            </div>
+          )
+        }
 
         <div class="flex flex-row items-center gap-2">
           {
-            tags.map((tag) => (
+            tags.map((tag: string) => (
               <a class="hover:underline text-sm" href={`/tags/${tag}`}>
                 #{tag}
               </a>
@@ -58,6 +63,7 @@ const { title, description, publishedAt, heroImage, category, tags } =
         <div>
           <slot />
         </div>
+        <!-- <TOC pageHeadings={headings} /> -->
       </article>
     </main>
   </body>

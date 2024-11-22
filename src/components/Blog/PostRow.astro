@@ -20,10 +20,10 @@ const categoryEntry = await getEntry(category);
 <li
   class="flex flex-col sm:flex-row gap-2 sm:items-center border-b py-2 mb-1 capitalize border-b-zinc-700 text-white"
 >
-  <div class="text-sm w-28 text-stone-400 shrink-0">
+  <div class="text-sm w-24 text-stone-400 shrink-0">
     <time
-      datetime={publishedAt.toISOString()}
-      data-date={publishedAt.toISOString()}
+      datetime={publishedAt.toDateString()}
+      data-date={publishedAt.toDateString()}
     >
       {formatDate(publishedAt)}
     </time>
@@ -35,12 +35,12 @@ const categoryEntry = await getEntry(category);
   </h3>
   <div class="flex gap-2 shrink-0 flex-row items-center">
     <span title={lang}
-    >{lang === "en" ? "🇺🇸" : ""}</span>
+    >{lang === "en" ? "🇺🇸" : "🇪🇸"} </span>
     <a
       class="border border-zinc-700 rounded-2xl text-sm text-white no-underline px-2 py-0.5 transition-all duration-150 hover:border-zinc-300"
-      href={`/category/${categoryEntry.id}`}
+      href={`/category/${categoryEntry?.id}`}
     >
-      {categoryEntry.data.name}
+      {categoryEntry?.data.name}
     </a>
   </div>
 </li>

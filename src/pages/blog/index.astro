@@ -1,9 +1,9 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection, type CollectionEntry } from "astro:content";
-import FormattedDate from "../../components/FormattedDate.astro";
 import PageLayout from "../../layouts/PageLayout.astro";
 import PostRow from "../../components/Blog/PostRow.astro";
+import { groupPosts } from "../../lib/utils";
 
 const posts = (
   await getCollection(
@@ -14,6 +14,8 @@ const posts = (
   (a: any, b: any) =>
     Date.parse(`${b.data.publishedAt}`) - Date.parse(`${a.data.publishedAt}`)
 ) as CollectionEntry<"blog">[];
+
+const groupedPosts = groupPosts(posts);
 ---
 
 <PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -26,9 +28,19 @@ const posts = (
       >Atrás</a
     >
     <section class="w-full">
-      <h1 class="text-4xl font-bold mb-4 text-stone-100">Blog</h1>
+      <h1 class="text-4xl font-bold mb-8 text-stone-100">Blog</h1>
       <ul class="w-full">
-        {posts?.map((post) => <PostRow data={post.data} slug={post.slug} />)}
+        {groupedPosts.map((group) => (
+          <li class="mb-6">
+            <h2 class="text-2xl text-stone-100 font-medium">{group.year}</h2>
+            <ul class="w-full mb-4">
+              {group.items.map((post) => (
+                // @ts-ignore
+               <PostRow data={post.data} slug={post.slug} />
+              ))}
+            </ul>
+          </li>
+        ))}
       </ul>
     </section>
   </main>
