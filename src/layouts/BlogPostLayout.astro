@@ -3,13 +3,11 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { getEntry } from "astro:content";
-import TOC from "../components/TOC.astro";
 
-// type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, publishedAt, heroImage, category, tags, ...rest } =
+const { title, description, publishedAt, heroImage, category, tags } =
   Astro.props;
-console.log("🔴 ~ rest:", Astro.props);
 
 const categoryEntry = await getEntry(category);
 ---
@@ -63,7 +61,6 @@ const categoryEntry = await getEntry(category);
         <div>
           <slot />
         </div>
-        <!-- <TOC pageHeadings={headings} /> -->
       </article>
     </main>
   </body>
