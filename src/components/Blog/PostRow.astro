@@ -13,12 +13,13 @@ const {
   slug,
 } = Astro.props;
 
+console.log("🔴 ~ title:", title);
 const categoryEntry = await getEntry(category);
 
 ---
 
 <li
-  class="flex flex-col sm:flex-row gap-2 sm:items-center border-b py-2 mb-1 capitalize border-b-zinc-700 text-white"
+  class="flex flex-col sm:flex-row gap-2 sm:items-center border-b py-2 mb-1 border-b-zinc-700 text-white"
 >
   <div class="text-sm w-24 text-stone-400 shrink-0">
     <time

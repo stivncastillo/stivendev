@@ -4,27 +4,26 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import PostRow from "../../components/Blog/PostRow.astro";
 
-
 export async function getStaticPaths() {
-  const categories = await getCollection("categories");
+  const posts = await getCollection("blog");
+  const tags = posts.flatMap((post: CollectionEntry<"blog">) => post.data.tags);
 
-  return categories.map((category: CollectionEntry<"categories">) => ({
-    params: { slug: category.id },
-    props: {entry: category},
+  return tags.map((tag) => ({
+    params: { slug: tag },
+    props: {tag},
   }));
 }
 
-
 type Props = {
-  entry: CollectionEntry<"categories">;
+  tag: string;
 };
 
-const {entry} = Astro.props as Props;
+const {tag} = Astro.props as Props;
 
 const posts = (
   await getCollection(
     "blog",
-    (post: CollectionEntry<"blog">) => post.data.published && post.data.category.id === entry.id
+    (post: CollectionEntry<"blog">) => post.data.published && post.data.tags.includes(tag)
   )
 ).sort(
   (a: any, b: any) =>
@@ -42,7 +41,7 @@ const posts = (
       >Atrás</a
     >
     <section class="w-full">
-      <h1 class="text-4xl font-bold mb-4 text-stone-100">{entry.data.name}</h1>
+      <h1 class="text-4xl font-bold mb-4 text-stone-100">{tag}</h1>
       <ul class="w-full">
         {posts?.map((post) => <PostRow data={post.data} slug={post.slug} />)}
       </ul>
