@@ -13,8 +13,8 @@ const {
   slug,
 } = Astro.props;
 
-console.log("🔴 ~ title:", title);
 const categoryEntry = await getEntry(category);
+console.log("🔴 ~ categoryEntry:", categoryEntry);
 
 ---
 
